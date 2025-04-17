@@ -1,0 +1,21 @@
+name: risma-app
+type: web
+env: python
+buildCommand: pip install -r requirements.txt && cd frontend && npm install && npm run build
+startCommand: cd app && uvicorn main:app --host 0.0.0.0 --port $PORT
+envVars:
+  - key: DATABASE_URL
+    value: postgresql://postgres:postgres@localhost/risma
+  - key: SECRET_KEY
+    generateValue: true
+  - key: ALGORITHM
+    value: HS256
+  - key: ACCESS_TOKEN_EXPIRE_MINUTES
+    value: 30
+  - key: GOOGLE_API_KEY
+    sync: false
+  - key: NEXT_PUBLIC_API_URL
+    fromService:
+      name: risma-app
+      type: web
+      property: url
