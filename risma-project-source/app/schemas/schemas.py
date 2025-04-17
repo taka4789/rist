@@ -1,6 +1,5 @@
-from typing import List
+from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List, Dict, Any
 from datetime import datetime
 
 
@@ -64,7 +63,7 @@ class ListUpdate(BaseModel):
     status: Optional[str] = None
 
 
-class ListInDBBase(ListBase):
+class ListInDBBase(ListBase):  # ← 親クラスはそのままでOK
     id: int
     owner_id: int
     created_at: datetime
@@ -76,7 +75,7 @@ class ListInDBBase(ListBase):
         orm_mode = True
 
 
-class List(ListInDBBase):
+class ListResponse(ListInDBBase):  # ← 名前を変更！
     pass
 
 
